@@ -1,0 +1,23 @@
+.video-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(var(--theme-color-rgb), 0.05);
+    border-color: var(--selected-glow);
+}
+
+.video-card:hover .thumbnail {
+    transform: scale(1.05);
+}
+
+.video-card:hover .channel-avatar {
+    transform: scale(1.05);
+    border-color: var(--selected-glow);
+}
+
+.video-card:hover .channel-name {
+    color: var(--selected-glow);
+}
+
+.video-card:hover .video-title {
+    color: var(--selected-glow);
+    text-shadow: var(--glow-shadow-sm);
+} 

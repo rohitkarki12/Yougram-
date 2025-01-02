@@ -1,0 +1,58 @@
+/* Clean Arrow Trigger Styling */
+.sidebar-trigger {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13, 13, 15, 0.95);
+    border: 1px solid rgba(var(--theme-color-rgb), 0.2);
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+.sidebar-trigger i {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-trigger:hover {
+    background: rgba(var(--theme-color-rgb), 0.1);
+    border-color: var(--glow-purple);
+    box-shadow: var(--glow-shadow-sm);
+}
+
+.sidebar-trigger:hover i {
+    color: var(--glow-purple);
+    filter: drop-shadow(var(--glow-shadow-sm));
+}
+
+/* When sidebar is expanded */
+.sidebar.expanded + .sidebar-trigger i {
+    transform: rotate(180deg);
+}
+
+/* Hide when sidebar is open */
+.sidebar.expanded ~ .sidebar-trigger {
+    animation: fadeOutArrow 0.3s ease forwards;
+    pointer-events: none;
+}
+
+/* Add class for complete removal after animation */
+.sidebar-trigger.hidden {
+    display: none;
+}
+
+/* Remove the global style that was affecting other animations */
+.sidebar-trigger * {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+} 

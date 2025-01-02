@@ -1,0 +1,104 @@
+.theme-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: 320px;
+    background: rgba(18, 18, 18, 0.98);
+    border: 1px solid rgba(var(--theme-color-rgb), 0.2);
+    border-radius: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(var(--theme-color-rgb), 0.1);
+    z-index: 1000;
+}
+
+.theme-popup.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.theme-popup-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-popup-header h3 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.theme-options {
+    padding: 8px;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.theme-option:hover {
+    background: rgba(var(--theme-color-rgb), 0.1);
+}
+
+.color-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 2px solid rgba(var(--theme-color-rgb), 0.2);
+}
+
+/* Theme colors */
+.theme-option.purple .color-preview {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+}
+
+.theme-option.blue .color-preview {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+}
+
+.theme-option.green .color-preview {
+    background: linear-gradient(135deg, #34d399, #10b981);
+}
+
+.theme-option.pink .color-preview {
+    background: linear-gradient(135deg, #f472b6, #ec4899);
+}
+
+.theme-option i {
+    margin-left: auto;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+    color: var(--selected-glow);
+}
+
+.theme-option.active i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Theme button glow */
+.theme-btn i {
+    color: var(--selected-glow);
+    filter: drop-shadow(var(--glow-shadow-sm));
+}
+
+.theme-btn:hover {
+    background: rgba(var(--theme-color-rgb), 0.1);
+} 

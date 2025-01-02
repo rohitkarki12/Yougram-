@@ -1,0 +1,10 @@
+:root {
+    /* Theme colors - these will be updated by JavaScript */
+    --theme-color: rgb(167, 139, 250);
+    --theme-color-rgb: 167, 139, 250;
+    --theme-glow: rgba(167, 139, 250, 0.4);
+    --selected-glow: var(--theme-color);
+    --glow-shadow-sm: 0 0 8px var(--theme-glow);
+    --glow-shadow-md: 0 0 15px var(--theme-glow);
+    --glow-shadow-lg: 0 0 30px var(--theme-glow);
+} 

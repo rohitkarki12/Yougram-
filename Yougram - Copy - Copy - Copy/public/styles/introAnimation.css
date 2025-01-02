@@ -1,0 +1,185 @@
+.intro-container {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center,
+        rgba(13, 13, 15, 0.95) 0%,
+        rgba(0, 0, 0, 1) 100%
+    );
+}
+
+.intro-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        radial-gradient(2px 2px at var(--x) var(--y),
+            rgba(167, 139, 250, 0.4) 50%,
+            transparent 50%);
+    background-size: 120px 120px;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(to right, rgba(167, 139, 250, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(167, 139, 250, 0.07) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 15s linear infinite;
+    filter: blur(0.5px);
+}
+
+.logo-container {
+    position: relative;
+    animation: logoReveal 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    filter: drop-shadow(0 0 30px rgba(167, 139, 250, 0.2));
+}
+
+.logo-wrapper {
+    display: flex;
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    gap: 2px;
+}
+
+.you, .gram {
+    color: var(--glow-purple);
+    text-shadow: 
+        0 0 25px rgba(167, 139, 250, 0.6),
+        0 0 45px rgba(167, 139, 250, 0.4),
+        0 0 65px rgba(167, 139, 250, 0.3);
+    animation: initialGlow 1s ease-out forwards;
+}
+
+.you {
+    animation: 
+        initialGlow 1.2s ease-out,
+        shiftGlow 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards 1.2s;
+}
+
+.gram {
+    animation: 
+        initialGlow 1.2s ease-out,
+        fadeGram 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards 1.2s;
+}
+
+.fade-out {
+    animation: introFadeOut 0.3s ease-in forwards;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+@keyframes gridMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(50px); }
+}
+
+@keyframes logoReveal {
+    from { 
+        transform: scale(0.8);
+        opacity: 0;
+        filter: blur(10px);
+    }
+    to { 
+        transform: scale(1);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes initialGlow {
+    0% { 
+        filter: brightness(1);
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    30% {
+        filter: brightness(1.4);
+        transform: scale(1.02);
+        opacity: 0.8;
+    }
+    50% {
+        filter: brightness(1.6);
+        transform: scale(1.01);
+        opacity: 1;
+    }
+    70% {
+        filter: brightness(1.5);
+        transform: scale(1.03);
+    }
+    100% { 
+        filter: brightness(1.5);
+        transform: scale(1);
+        opacity: 1;
+        text-shadow: 
+            0 0 35px rgba(167, 139, 250, 0.8),
+            0 0 65px rgba(167, 139, 250, 0.6),
+            0 0 95px rgba(167, 139, 250, 0.4);
+    }
+}
+
+@keyframes shiftGlow {
+    0% { 
+        filter: brightness(1.5);
+    }
+    40% {
+        filter: brightness(1.7);
+        text-shadow: 
+            0 0 40px rgba(167, 139, 250, 0.85),
+            0 0 70px rgba(167, 139, 250, 0.65),
+            0 0 100px rgba(167, 139, 250, 0.45);
+    }
+    100% { 
+        filter: brightness(1.8);
+        text-shadow: 
+            0 0 35px rgba(167, 139, 250, 0.8),
+            0 0 65px rgba(167, 139, 250, 0.6),
+            0 0 95px rgba(167, 139, 250, 0.4);
+    }
+}
+
+@keyframes fadeGram {
+    0% { 
+        filter: brightness(1.5);
+    }
+    40% {
+        filter: brightness(1.2);
+        text-shadow: 
+            0 0 20px rgba(167, 139, 250, 0.4),
+            0 0 40px rgba(167, 139, 250, 0.2);
+    }
+    100% { 
+        filter: brightness(0.6);
+        text-shadow: none;
+        color: #666;
+        opacity: 0.6;
+    }
+}
+
+@keyframes introFadeOut {
+    to { opacity: 0; }
+}
+
+.fade-in {
+    animation: contentFadeIn 0.5s ease-out forwards;
+}
+
+@keyframes contentFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+} 

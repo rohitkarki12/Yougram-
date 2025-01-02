@@ -1,0 +1,55 @@
+.nav-item {
+    position: relative;
+    transform-origin: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-icon {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Hover Animation */
+.nav-item:hover .nav-icon svg {
+    transform: translateY(-5px) scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Click Animation */
+.nav-item:active .nav-icon svg {
+    transform: scale(0.9);
+}
+
+/* Selected Animation */
+.nav-item.active .nav-icon svg {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Floating Animation for active icon */
+.nav-item.active {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+} 

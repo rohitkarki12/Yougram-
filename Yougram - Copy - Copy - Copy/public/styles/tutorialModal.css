@@ -1,0 +1,390 @@
+.tutorial-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.tutorial-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hide scrollbar and prevent scrolling when tutorial is active */
+body.tutorial-active {
+    overflow: hidden !important;
+    padding-right: 15px;
+}
+
+/* Prevent sidebar interaction during tutorial */
+body.tutorial-active .sidebar {
+    pointer-events: none !important;
+    transform: translateX(-100%) !important;
+    transition: none !important;
+}
+
+body.tutorial-active .sidebar-trigger {
+    pointer-events: none !important;
+    opacity: 0 !important;
+    transition: none !important;
+}
+
+/* For Firefox */
+body.tutorial-active {
+    scrollbar-width: none;
+}
+
+/* For Webkit browsers */
+body.tutorial-active::-webkit-scrollbar {
+    display: none;
+}
+
+.tutorial-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.tutorial-modal.active .tutorial-overlay {
+    opacity: 1;
+}
+
+.tutorial-content {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    background: rgba(var(--theme-color-rgb), 0.1);
+    border: 2px solid rgba(var(--theme-color-rgb), 0.2);
+    border-radius: 24px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 
+        0 0 30px rgba(var(--theme-color-rgb), 0.2),
+        0 0 60px rgba(0, 0, 0, 0.4);
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.tutorial-modal.active .tutorial-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.tutorial-title {
+    color: var(--selected-glow);
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-shadow: var(--glow-shadow-sm);
+}
+
+.tutorial-description {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.tutorial-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.tutorial-buttons button {
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.skip-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.skip-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.start-btn {
+    background: var(--selected-glow);
+    border: none;
+    color: #fff;
+    box-shadow: var(--glow-shadow-sm);
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-shadow-md);
+}
+
+.glow-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.glow-shapes-foreground {
+    position: absolute;
+    inset: -20px;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 10;
+    transform-style: preserve-3d;
+}
+
+.glow-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(var(--theme-color-rgb), 0.2);
+    filter: blur(8px);
+    animation: glowFloat 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    opacity: 0.6;
+}
+
+.glow-circle-foreground {
+    position: absolute;
+    border-radius: 50%;
+    background: hsla(var(--theme-color-rgb), 70%, 60%, 0.3);
+    filter: blur(4px);
+    opacity: 0.8;
+    box-shadow: 0 0 15px rgba(var(--theme-color-rgb), 0.4);
+    transition: filter 0.2s ease, background-color 0.3s ease;
+    will-change: transform, filter, background-color;
+    animation: glowFloatRotateForeground 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.glow-square {
+    position: absolute;
+    background: rgba(var(--theme-color-rgb), 0.2);
+    filter: blur(8px);
+    animation: glowFloatRotate 5s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+.glow-square-foreground {
+    position: absolute;
+    background: rgba(var(--theme-color-rgb), 0.3);
+    filter: blur(4px);
+    animation: glowFloatRotateForeground 7s ease-in-out infinite;
+    opacity: 0.8;
+    box-shadow: 0 0 15px rgba(var(--theme-color-rgb), 0.4);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes glowFloat {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-30px) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+    }
+}
+
+@keyframes glowFloatRotate {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-20px) rotate(180deg) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(0) rotate(360deg) scale(1);
+        opacity: 0.6;
+    }
+}
+
+@keyframes glowFloatForeground {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(-40px, -20px) rotate(180deg) scale(1.3);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg) scale(1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes glowFloatRotateForeground {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(30px, -30px) rotate(-180deg) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0, 0) rotate(-360deg) scale(1);
+        opacity: 0.8;
+    }
+}
+
+.tutorial-modal.closing {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.tutorial-modal.closing .tutorial-content {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+}
+
+/* Remove the automatic animations for foreground shapes */
+.glow-circle-foreground,
+.glow-square-foreground {
+    animation: none;
+}
+
+/* Add collision animation */
+@keyframes collisionFlash {
+    0% { filter: blur(4px) brightness(1); }
+    50% { filter: blur(4px) brightness(1.5); }
+    100% { filter: blur(4px) brightness(1); }
+}
+
+.preview-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.message-line {
+    font-size: 24px;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    text-shadow: var(--glow-shadow-sm);
+}
+
+.message-line.highlight {
+    color: var(--selected-glow);
+    font-size: 28px;
+    font-weight: 600;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.continue-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--selected-glow);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s 0.8s forwards;
+    box-shadow: var(--glow-shadow-sm);
+}
+
+.continue-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-shadow-md);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.sidebar-hint {
+    background: rgba(var(--theme-color-rgb), 0.1);
+    border: 2px solid rgba(var(--theme-color-rgb), 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    animation: pulseHint 2s infinite;
+}
+
+.sidebar-hint i {
+    color: var(--selected-glow);
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.sidebar-hint p {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.hint-note {
+    color: #888;
+    font-size: 14px;
+    font-style: italic;
+}
+
+@keyframes pulseHint {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+} 

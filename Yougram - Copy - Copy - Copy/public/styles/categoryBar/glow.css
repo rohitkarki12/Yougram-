@@ -1,0 +1,31 @@
+.nav-icon::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.nav-item.active .nav-icon::before,
+.nav-item:hover .nav-icon::before {
+    background: radial-gradient(
+        circle,
+        rgba(167, 139, 250, 0.2) 0%,
+        rgba(167, 139, 250, 0.1) 50%,
+        transparent 70%
+    );
+    box-shadow: var(--glow-shadow-md);
+    filter: blur(5px);
+}
+
+.nav-item:hover .nav-icon,
+.nav-item.active .nav-icon {
+    color: var(--glow-purple);
+    filter: drop-shadow(var(--glow-shadow-sm));
+    transform: translateY(-2px);
+} 

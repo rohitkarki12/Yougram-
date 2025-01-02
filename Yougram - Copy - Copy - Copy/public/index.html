@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yougram</title>
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/style.css">
+    
+    <!-- Component Styles -->
+    <link rel="stylesheet" href="styles/logo.css">
+    <link rel="stylesheet" href="styles/search.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/videoCard/base.css">
+    <link rel="stylesheet" href="styles/videoCard/hover.css">
+    <link rel="stylesheet" href="styles/videoCard/glow.css">
+    <link rel="stylesheet" href="styles/categoryBar.css">
+    <link rel="stylesheet" href="styles/grid.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/sidebar/arrow.css">
+    <link rel="stylesheet" href="styles/dialMenu.css">
+    <link rel="stylesheet" href="styles/messagePopup.css">
+    <link rel="stylesheet" href="styles/cards.css">
+    <link rel="stylesheet" href="styles/searchFilter.css">
+    <link rel="stylesheet" href="styles/introAnimation.css">
+    <link rel="stylesheet" href="styles/aiChat.css">
+    <link rel="stylesheet" href="styles/profilePopup.css">
+    <link rel="stylesheet" href="styles/themePopup.css">
+    <link rel="stylesheet" href="styles/loginModal.css">
+    <link rel="stylesheet" href="styles/signupModal.css">
+    <link rel="stylesheet" href="styles/aboutModal.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Theme System -->
+    <script src="js/ThemeManager.js" defer></script>
+    
+    <!-- Core Scripts -->
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <!-- Left section with logo -->
+            <div class="header-left">
+                <div id="logo-container"></div>
+            </div>
+
+            <!-- Center section with search -->
+            <div class="header-center">
+                <div class="search-wrapper">
+                    <div id="search-container"></div>
+                    <button class="search-filter-btn" data-tooltip="Search Filters">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+                    <div id="dial-menu-container"></div>
+                </div>
+            </div>
+
+            <!-- Right section with icons -->
+            <div class="header-right">
+                <button class="icon-button upload-btn" data-tooltip="Upload">
+                    <i class="fas fa-video"></i>
+                </button>
+                <button class="icon-button notification-btn" data-tooltip="Notifications">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="icon-button message-btn" data-tooltip="Messages">
+                    <i class="fas fa-comment"></i>
+                </button>
+                <button class="icon-button profile-btn" data-tooltip="Profile">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content"></main>
+
+    <!-- Additional Containers -->
+    <div id="dial-menu-container"></div>
+    <div id="category-container"></div>
+    <div id="cards-container"></div>
+
+    <!-- Services -->
+    <script src="services/StateManager.js"></script>
+    <script src="services/SidebarTrigger.js"></script>
+    <script src="services/UserDataService.js"></script>
+
+    <!-- Components -->
+    <script src="components/Logo.js"></script>
+    <script src="components/SearchBar.js"></script>
+    <script src="components/VideoCard.js"></script>
+    <script src="components/CategoryBar.js"></script>
+    <script src="components/Sidebar.js"></script>
+    <script src="components/DialMenu.js"></script>
+    <script src="components/MessagePopup.js"></script>
+    <script src="components/Cards.js"></script>
+    <script src="components/SearchFilter.js"></script>
+    <script src="components/IntroAnimation.js"></script>
+    <script src="components/AiChat.js"></script>
+    <script src="components/ProfilePopup.js"></script>
+    <script src="components/LoginModal.js"></script>
+    <script src="components/SignupModal.js"></script>
+    <script src="components/AboutModal.js"></script>
+
+    <!-- Data -->
+    <script src="data/mockVideos.js"></script>
+    <script src="data/chatResponses.js"></script>
+
+    <!-- App Initialization -->
+    <script src="app.js"></script>
+    
+    <!-- Component Initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize theme system
+            const themeManager = new ThemeManager();
+            
+            // Initialize user service
+            const userService = new UserDataService();
+            
+            // Check if user is already logged in
+            if (userService.isLoggedIn()) {
+                document.dispatchEvent(new CustomEvent('userLoggedIn', { 
+                    detail: userService.getCurrentUser() 
+                }));
+            }
+            
+            // Initialize components
+            const dialMenu = new DialMenu(document.getElementById('dial-menu-container'));
+            const messagePopup = new MessagePopup();
+            const cards = new Cards(document.getElementById('cards-container'));
+            const searchFilter = new SearchFilter();
+            const introAnimation = new IntroAnimation();
+            const aiChat = new AiChat();
+            const profilePopup = new ProfilePopup();
+            
+            // Initialize layout
+            initializeLayout();
+        });
+    </script>
+</body>
+</html> 

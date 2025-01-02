@@ -1,0 +1,286 @@
+.dial-menu-container {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 0 10px;
+    z-index: 9500;
+}
+
+.dial-trigger {
+    background: rgba(13, 13, 15, 0.95);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(167, 139, 250, 0.1);
+}
+
+.dial-trigger i {
+    color: var(--glow-purple);
+    font-size: 18px;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dial-trigger:hover {
+    background: rgba(167, 139, 250, 0.1);
+    border-color: rgba(167, 139, 250, 0.3);
+    transform: scale(1.05);
+    box-shadow: 
+        0 8px 30px rgba(167, 139, 250, 0.15),
+        0 0 0 1px rgba(167, 139, 250, 0.2);
+}
+
+.dial-menu {
+    position: absolute;
+    top: calc(100% + 15px);
+    right: 0;
+    background: rgba(13, 13, 15, 0.98);
+    border-radius: 20px;
+    padding: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95) translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(167, 139, 250, 0.1);
+    z-index: 9501;
+}
+
+.dial-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+}
+
+.dial-options {
+    display: flex;
+    gap: 10px;
+    z-index: 9502;
+}
+
+.dial-option {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(167, 139, 250, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.dial-option i {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.dial-option:hover {
+    background: rgba(167, 139, 250, 0.08);
+    border-color: rgba(167, 139, 250, 0.3);
+    transform: translateY(-2px);
+}
+
+.dial-option:hover i {
+    color: var(--glow-purple);
+    transform: scale(1.1);
+}
+
+/* Tooltip */
+.dial-option::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(13, 13, 15, 0.9);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.dial-option:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: -30px;
+}
+
+/* Animation for options */
+@keyframes optionAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5) rotate(-180deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+.dial-option {
+    animation: optionAppear 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dial-option:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.categories-popup {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(13, 13, 15, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 16px;
+    width: 360px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.98) translateX(-50%);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(167, 139, 250, 0.1);
+    z-index: 99999;
+}
+
+.categories-popup.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1) translateX(-50%);
+}
+
+/* Add arrow pointer */
+.categories-popup::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: rgba(13, 13, 15, 0.98);
+    border-left: 1px solid rgba(167, 139, 250, 0.2);
+    border-top: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px;
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.dial-menu-item[data-label="AI Assistant"] .dial-menu-icon {
+    background: linear-gradient(135deg, var(--glow-purple), #9333ea);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brainPulse 2s ease-in-out infinite;
+}
+
+.dial-menu-item[data-label="AI Assistant"]:hover .dial-menu-icon {
+    animation: brainPulse 1s ease-in-out infinite;
+}
+
+@keyframes brainPulse {
+    0%, 100% {
+        filter: brightness(1) drop-shadow(0 0 2px rgba(167, 139, 250, 0.3));
+    }
+    50% {
+        filter: brightness(1.3) drop-shadow(0 0 4px rgba(167, 139, 250, 0.5));
+    }
+}
+
+.ai-chat-popup {
+    position: absolute;
+    top: calc(100% + 15px);
+    right: -10px;
+    background: rgba(13, 13, 15, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 16px;
+    width: 360px;
+    height: 480px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.98);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(167, 139, 250, 0.1);
+    z-index: 99999;
+    overflow: hidden;
+}
+
+.ai-chat-popup.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.ai-chat-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Add arrow pointer */
+.ai-chat-popup::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 25px;
+    transform: rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: rgba(13, 13, 15, 0.98);
+    border-left: 1px solid rgba(167, 139, 250, 0.2);
+    border-top: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+/* Ensure the brain icon glows */
+.dial-option[data-tooltip="AI Assistant"] i {
+    color: var(--glow-purple);
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+.dial-option[data-tooltip="AI Assistant"]:hover i {
+    animation: brainPulse 1s ease-in-out infinite;
+}
+
+@keyframes brainPulse {
+    0%, 100% {
+        filter: brightness(1) drop-shadow(0 0 2px rgba(167, 139, 250, 0.3));
+    }
+    50% {
+        filter: brightness(1.3) drop-shadow(0 0 4px rgba(167, 139, 250, 0.5));
+    }
+} 
